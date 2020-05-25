@@ -3,15 +3,29 @@
   {{ super() }}
   <script type="text/javascript"
           src="{{ url_for(".static", filename='locate.js') }}"></script>
+  <link rel="stylesheet"
+        href="{{ url_for(".static", filename='locate.css') }}">
 {% endblock %}
 {% block body %}
-  <h1>{{ token }}</h1>
-  <form action="{{ url_for(".locate", token=token) }}" method="post" style="display: none">
+  <div id="overlay">
+    <div class="allow">
+      <h1 class="govuk-heading-xl" style="margin-top: 20px;"><i class="fas fa-map-marker-alt"></i>
+        Povoľte získanie polohy na upresnenie
+        miesta domácej izolácie</h1>
+    </div>
+    <div class="unavailable" style="display:none;">
+      <h1 class="govuk-heading-xl" style="margin-top: 20px;"><i class="fas fa-exclamation-triangle"></i>
+        Získanie polohy nebolo úspešné</h1>
+      <span>Skúste prosím znova.</span>
+    </div>
+  </div>
+  <div id="map"></div>
+  <form action="{{ url_for(".locate", token=token) }}" method="post" style="display: none"
+        id="form">
     {{ form.hidden_tag() }}
     {{ form.token() }}
     {{ form.lat() }}
     {{ form.lng() }}
-    {{ form.alt() }}
-    {{ form.accuracy() }}
   </form>
+  <button class="govuk-button" onclick="submit()" id="send-button" disabled="disabled">Odoslať</button>
 {% endblock %}

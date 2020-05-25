@@ -1,0 +1,21 @@
+#overlay {
+  background-color: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  width: 80%;
+  top: 40%;
+  z-index: 1;
+  padding-left: 5%;
+  padding-right: 5%;
+  margin-left: 5%;
+  margin-right: 5%;
+  text-align: center;
+}
+
+#map {
+  height: 75%;
+}
+
+#send-button {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}

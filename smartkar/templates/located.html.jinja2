@@ -1,0 +1,35 @@
+{% extends "base.html.jinja2" %}
+{% block head %}
+  {{ super() }}
+  <style>
+    #map {
+      height: 75%;
+    }
+  </style>
+{% endblock %}
+{% block body %}
+  <div id="map"></div>
+  <script>
+    function init_map() {
+      let map = new google.maps.Map($("#map")[0], {
+        center: {lat: {{ lat }}, lng: {{ lng }}},
+        zoom: 17,
+        streetViewControl: false,
+        fullscreenControl: false,
+        mapTypeId: 'hybrid'
+      });
+      let marker = new google.maps.Marker({
+        position: {lat: {{ lat }}, lng: {{ lng }}},
+        map: map
+      });
+    }
+  </script>
+  <div>
+    <h1 class="govuk-heading-xl" style="margin-top: 20px;">
+      {% if not ok %}
+        <i class="fas fa-exclamation-triangle"></i>
+      {% endif %}
+      {{ message }}
+    </h1>
+  </div>
+{% endblock %}
