@@ -1,0 +1,17 @@
+{% extends "base.html.jinja2" %}
+{% block head %}
+  {{ super() }}
+  <script type="text/javascript"
+          src="{{ url_for(".static", filename='locate.js') }}"></script>
+{% endblock %}
+{% block body %}
+  <h1>{{ token }}</h1>
+  <form action="{{ url_for(".locate", token=token) }}" method="post" style="display: none">
+    {{ form.hidden_tag() }}
+    {{ form.token() }}
+    {{ form.lat() }}
+    {{ form.lng() }}
+    {{ form.alt() }}
+    {{ form.accuracy() }}
+  </form>
+{% endblock %}
