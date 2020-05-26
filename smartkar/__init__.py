@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, abort
 from flask_wtf import FlaskForm, CSRFProtect
 from wtforms import StringField, validators, FloatField
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path="/geo/static")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 app.config["NCZI_TOKEN"] = os.environ.get("NCZI_TOKEN")
 
