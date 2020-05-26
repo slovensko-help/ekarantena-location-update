@@ -15,8 +15,8 @@ function success_cb(position) {
             lng: position.coords.longitude,
             accuracy: position.coords.accuracy
         };
-        $("#lat").val(best_position.lat);
-        $("#lng").val(best_position.lng);
+        $("#lat").val(best_position.lat).text(best_position.lat);
+        $("#lng").val(best_position.lng).text(best_position.lng);
         $("#place-accuracy span").text(Math.round(position.coords.accuracy) + " m");
         if (position.coords.accuracy <= 150) {
             $("#place-submit").attr("disabled", false);
