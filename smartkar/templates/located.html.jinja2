@@ -20,8 +20,8 @@
                             </h1>
                             <p class="govuk-body" style="color: #fff">{{ detail }}</p>
                             {% for field, errors in errors.items() %}
-                                <span class="govuk-body">
-                                    {{ field }}: {{ ', '.join(errors) }}
+                                <span class="govuk-body" style="color: #fff">
+                                    {{ field }}: {{ ', '.join(errors) }}<br/>
                                 </span>
                             {% endfor %}
                         </div>
