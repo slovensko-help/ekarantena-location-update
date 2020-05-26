@@ -19,8 +19,8 @@
                             <div id="address-part">
                                 <h2 class="govuk-heading-l">Adresa domácej izolácie</h2>
                                 <div class="govuk-form-group">
-                                    <label class="govuk-label" for="input-example">
-                                        Ulica (povinné)
+                                    <label class="govuk-label" for="street">
+                                        Ulica
                                     </label>
                                     <span class="govuk-error-message" style="display: none">
                                       <span class="govuk-visually-hidden">Error:</span> Ulica je povinná.
@@ -28,17 +28,17 @@
                                     {{ form.street(class_="govuk-input") }}
                                 </div>
                                 <div class="govuk-form-group">
-                                    <label class="govuk-label" for="input-example">
-                                        Číslo (povinné)
+                                    <label class="govuk-label" for="street_number">
+                                        Súpisné číslo
                                     </label>
                                     <span class="govuk-error-message" style="display: none">
-                                      <span class="govuk-visually-hidden">Error:</span> Číslo je povinné.
+                                      <span class="govuk-visually-hidden">Error:</span> Súpisne číslo je povinné.
                                       </span>
                                     {{ form.street_number(class_="govuk-input") }}
                                 </div>
                                 <div class="govuk-form-group">
-                                    <label class="govuk-label" for="input-example">
-                                        Mesto (povinné)
+                                    <label class="govuk-label" for="city">
+                                        Mesto
                                     </label>
                                     <span class="govuk-error-message" style="display: none">
                                       <span class="govuk-visually-hidden">Error:</span> Mesto je povinné.
@@ -46,8 +46,8 @@
                                     {{ form.city(class_="govuk-input") }}
                                 </div>
                                 <div class="govuk-form-group">
-                                    <label class="govuk-label" for="input-example">
-                                        PSČ (povinné)
+                                    <label class="govuk-label" for="zip">
+                                        PSČ
                                     </label>
                                     <span class="govuk-error-message" style="display: none">
                                       <span class="govuk-visually-hidden">Error:</span> PSČ je povinné.
@@ -69,7 +69,7 @@
                             <div id="place-part"
                                  {% if type == "b" %}style="display: none"{% endif %}>
                                 <div>
-                                    <h2 class="govuk-heading-l">1. Povoľte zdieľanie polohy</h2>
+                                    <h2 class="govuk-heading-l" id="place-head">1. Povoľte zdieľanie polohy</h2>
                                     <p class="govuk-body">Po stlačení tlačidla nižšie vás prehliadač
                                         vyzve, aby ste povolili zdieľanie polohy. Potvrďte zdieľanie
                                         polohy.</p>

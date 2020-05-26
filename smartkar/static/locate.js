@@ -55,8 +55,10 @@ function address_submit(event) {
     }
     if (type === "b") {
         event.preventDefault();
-        $("#address-part").slideToggle();
-        $("#place-part").slideToggle();
+        $("#address-part").slideUp(300);
+        $("#place-part").slideDown(300, function () {
+            $("#place-head").get(0).scrollIntoView({behavior: "smooth"});
+        });
     }
 }
 
