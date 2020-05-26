@@ -15,7 +15,7 @@ function success_cb(position) {
             lng: position.coords.longitude,
             accuracy: position.coords.accuracy
         };
-        $("#place-accuracy span").text(position.coords.accuracy + " m");
+        $("#place-accuracy span").text(Math.round(position.coords.accuracy) + " m");
         if (position.coords.accuracy <= 150) {
             $("#place-submit").attr("disabled", false);
             $("#place-accuracy .spinner").removeClass("fa-pulse").removeClass("fa-spinner").addClass("fa-check-circle");
