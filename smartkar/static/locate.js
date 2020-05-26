@@ -7,6 +7,7 @@ function success_cb(position) {
     $("#place-part .unavailable").hide(200);
     $("#place-part .unsupported").hide(200);
     $("#place-part .available").show(200);
+    $("#place-accuracy .spinner").show();
     $("#place-try").attr("disabled", true);
     if (best_position === null || best_position.accuracy > position.coords.accuracy) {
         best_position = {
@@ -17,6 +18,7 @@ function success_cb(position) {
         $("#place-accuracy span").text(position.coords.accuracy + " m");
         if (position.coords.accuracy <= 150) {
             $("#place-submit").attr("disabled", false);
+            $("#place-accuracy .spinner").removeClass("fa-pulse").removeClass("fa-spinner").addClass("fa-check-circle");
         }
     }
 }

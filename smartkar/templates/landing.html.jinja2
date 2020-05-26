@@ -4,25 +4,27 @@
         <div class="govuk-width-container">
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full">
-                    <h1 class="govuk-heading-xl">Spresnenie miesta domácej izolácie</h1>
+                    <h1 class="govuk-heading-xl">Potvrdenie miesta domácej izolácie</h1>
                     <p class="govuk-body-lead">
-                        Myslíme si, že <strong>{{ type_name }}</strong> vašej domácej izolácie nieje
-                        stanovená dostatočne presne.
+                        Ďakujeme vám, že dodržiavate domácu izoláciu. Chceli by sme vás požiadať o
+                        spoluprácu pri spresnení <strong>{{ type_name["genitiv"] }}</strong> domácej izolácie.
                     </p>
-                    <p class="govuk-body">
-                        Nasledujúci proces vám pomôže spresniť miesto domácej izolácie.
-                    </p>
+                    {%- if type == "b" %}
+                        <p class="govuk-body">
+                            Prosíme, v nasledujúcich dvoch krokoch vložte vašu adresu domácej izolácie a následne potvrďte miesto izolácie.
+                        </p>
+                    {%- endif %}
                     {%- if type == "p" or type == "b" %}
                         <div class="govuk-warning-text">
                             <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
                             <strong class="govuk-warning-text__text">
                                 <span class="govuk-warning-text__assistive">Upozornenie</span>
-                                <p><b>Zapnite si prosím GPS a zaistite dobrý GPS signál, napríklad
-                                    choďte
-                                    ku oknu.</b></p>
+                                <p><b>Zapnite si GPS a nájdite si miesto blízko okna,
+                                    aby bol zaistený dobrý signál GPS.</b></p>
                             </strong>
                         </div>
                     {%- endif %}
+                    <p class="govuk-body">Pokračujte stlačením tlačidla “Začať”.</p>
                     <a href="{{ url_for(".locate", type=type, token=token) }}" role="button"
                        draggable="false"
                        class="govuk-button govuk-button--start" data-module="govuk-button"

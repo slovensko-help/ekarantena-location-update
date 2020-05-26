@@ -42,10 +42,38 @@ class BothForm(FlaskForm):
 
 
 types = {
-    "a": "adresa",
-    "p": "poloha",
-    "b": "adresa a poloha"
+    "a": {
+        "nominativ": "adresa",
+        "genitiv": "adresy",
+        "dativ": "adrese",
+        "akuzativ": "adresu",
+        "lokal": "adrese",
+        "instrumental": "adresou"
+    },
+    "p": {
+        "nominativ": "poloha",
+        "genitiv": "polohy",
+        "dativ": "polohe",
+        "akuzativ": "polohu",
+        "lokal": "polohe",
+        "instrumental": "polohou"
+    },
+    "b": {
+        "nominativ": "adresa a apoloha",
+        "genitiv": "adresy a polohy",
+        "dativ": "adrese a polohe",
+        "akuzativ": "adresu a polohu",
+        "lokal": "adrese a polohe",
+        "instrumental": "adresou a polohou"
+    }
 }
+# Nominativ - kto, co
+# Genitiv - koho, coho
+# Dativ - komu, comu
+# Akuzativ -
+# Lokal - o kom, o com
+# Instrumental - s kym, s cim
+
 
 forms = {
     "a": AddressForm,
@@ -77,38 +105,46 @@ def submit_form(form):
     resp = requests.post(endpoint, json=data, headers=headers)
     ok = True
     message = ""
+    detail = ""
     if resp.status_code == 200:
         message = "Poloha domácej izolácie bola úspešne aktualizovaná."
     elif resp.status_code == 202:
         ok = False
         try:
             resp_data = resp.json()
-            message = resp_data["ErrorText"]
+            message = "Chyba. Duplicate."
+            detail = resp_data["ErrorText"]
         except Exception:
-            message = "Chyba. Poloha domácej izolácie už bola raz aktualizovaná."
+            message = "Chyba. Duplicate."
+            detail = "Poloha domácej izolácie už bola raz aktualizovaná."
     elif resp.status_code == 400:
         ok = False
         message = "Chyba. Bad request."
+        detail = ""
     elif resp.status_code == 404:
         ok = False
         message = "Chyba. Nesprávny token."
+        detail = "Skontrolujte, že adresa stránky je správna a token \"{}\" neobsahuje chybu.".format(
+                form.token.data)
     elif resp.status_code == 401:
         ok = False
         message = "Chyba. Unauthorized."
     elif resp.status_code == 403:
         ok = False
         message = "Chyba. Forbidden."
-    return resp, ok, message
+    return resp, ok, message, detail
 
 
-@app.route("/geo/<string:type>/<string:token>")
+@app.route("/geo/<string:token>", defaults={"type": "b"})
+# @app.route("/geo/<string:type>/<string:token>")
 def landing(type, token):
     if type not in types or len(token) != 32:
         abort(404)
     return render_template("landing.html.jinja2", type=type, type_name=types[type], token=token)
 
 
-@app.route("/geo/<string:type>/<string:token>/do", methods=["GET", "POST"])
+@app.route("/geo/<string:token>/do", defaults={"type": "b"}, methods=["GET", "POST"])
+# @app.route("/geo/<string:type>/<string:token>/do", methods=["GET", "POST"])
 def locate(type, token):
     if type not in types or len(token) != 32:
         abort(404)
@@ -118,8 +154,8 @@ def locate(type, token):
         return render_template("locate.html.jinja2", type=type, type_name=types[type], token=token,
                                form=form)
     elif form.validate_on_submit():
-        resp, ok, message = submit_form(form)
+        resp, ok, message, detail = submit_form(form)
         return render_template("located.html.jinja2", type=type, token=token, message=message,
-                               ok=ok)
+                               detail=detail, ok=ok)
     else:
         print(form.data)

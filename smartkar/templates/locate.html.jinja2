@@ -42,9 +42,12 @@
                                     </label>
                                     {{ form.zip(class_="govuk-input") }}
                                 </div>
+                                {% if type == "b" %}
+                                    <p class="govuk-body">Po potvrdení adresy tlačidlom nižšie bude spustené spresnenie polohy.</p>
+                                {% endif %}
                                 {% if type == "a" or type == "b" %}
                                     <button class="govuk-button" id="address-submit">
-                                        Potvrdiť
+                                        Potvrdiť adresu
                                     </button>
                                 {% endif %}
                             </div>
@@ -54,8 +57,7 @@
                                  {% if type == "b" %}style="display: none"{% endif %}>
                                 <div>
                                     <h2 class="govuk-heading-l">1. Povoľte zdieľanie polohy</h2>
-                                    <p class="govuk-body">Po stlačení tlačidla nižšie vás prehliadač vyzve na povolenie zdieľana polohy.
-                                        Potvrdte zdieľanie polohy aby sme vás mohli zamerať.</p>
+                                    <p class="govuk-body">Po stlačení tlačidla nižšie vás prehliadač vyzve, aby ste povolili zdieľanie polohy. Potvrďte zdieľanie polohy.</p>
                                     <p class="govuk-body unsupported" style="display: none;"><i class="fas fa-exclamation-circle"></i> Váš prehliadač nepodporuje získanie polohy.</p>
                                     <p class="govuk-body denied" style="display: none;"><i class="fas fa-exclamation-triangle"></i> Získanie polohy nebolo povolené.</p>
                                     <p class="govuk-body unavailable" style="display: none;"><i class="fas fa-exclamation-triangle"></i> Polohu sa nepodarilo získať.</p>
@@ -65,11 +67,11 @@
                                 <div>
                                     <h2 class="govuk-heading-l">2. Počkajte na získanie presnej
                                         polohy</h2>
-                                    <p class="govuk-body">Váš prehliadač sa pokúsi získať čo najpresnejší údaj o vašej polohe.
-                                        Akonáhle bude vaša poloha zistená s presnosťou aspoň 150 metrov, budete ju môcť odoslať.</p>
+                                    <p class="govuk-body">Pokúšame sa získať čo najpresnejší údaj o Vašej polohe. Akonáhle bude vaša poloha overená s presnosťou aspoň 150 m,
+                                        budete ju môcť potvrdiť stlačením tlačidla Potvrdiť miesto.</p>
 
                                     <div id="place-accuracy" style="text-align: center;" class="govuk-!-padding-top-2 govuk-!-padding-bottom-4">
-                                        <h3 class="govuk-heading-m">Presnosť</h3>
+                                        <h3 class="govuk-heading-m">Presnosť <i class="fas fa-spinner fa-pulse spinner" style="display: none"></i></h3>
                                         <span style="font-size: 2em; font-family:Source Sans Pro,Arial,sans-serif;">Neznáma</span>
                                     </div>
                                 </div>
@@ -77,7 +79,7 @@
                                 {{ form.lng(style="display: none") }}
                                 {% if type == "p" or type == "b" %}
                                     <button class="govuk-button" id="place-submit" disabled>
-                                        Potvrdiť
+                                        Potvrdiť miesto
                                     </button>
                                 {% endif %}
                             </div>
