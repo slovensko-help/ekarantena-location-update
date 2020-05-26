@@ -34,17 +34,25 @@ function error_cb(error) {
     }
 }
 
-function address_press(event) {
-    let filtered = $("#address-part input").filter(function (i, elem) {
-        return $(elem).val() === "";
-    });
-    if ($(filtered).length === 0) {
-        $("#address-submit").attr("disabled", false);
-    }
-}
-
 function address_submit(event) {
     console.log(event);
+    let bad = 0;
+    $("#address-part input").each(function (i, elem) {
+        if ($(elem).val() === "") {
+            $(elem).addClass("govuk-input--error");
+            $(elem).parents(".govuk-form-group").addClass("govuk-form-group--error");
+            $(elem).siblings("span").show(100);
+            bad++;
+        } else {
+            $(elem).removeClass("govuk-input--error");
+            $(elem).parents(".govuk-form-group").removeClass("govuk-form-group--error");
+            $(elem).siblings("span").hide(100);
+        }
+    });
+    if (bad !== 0) {
+        event.preventDefault();
+        return;
+    }
     if (type === "b") {
         event.preventDefault();
         $("#address-part").slideToggle();
@@ -61,7 +69,10 @@ function place_try(event) {
         if (watch_id !== null) {
             navigator.geolocation.clearWatch(watch_id);
         }
-        watch_id = navigator.geolocation.watchPosition(success_cb, error_cb, {"enableHighAccuracy": true, "timeout": 1000});
+        watch_id = navigator.geolocation.watchPosition(success_cb, error_cb, {
+            "enableHighAccuracy": true,
+            "timeout": 1000
+        });
     }
 }
 

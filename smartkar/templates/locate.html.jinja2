@@ -20,33 +20,46 @@
                                 <h2 class="govuk-heading-l">Adresa domácej izolácie</h2>
                                 <div class="govuk-form-group">
                                     <label class="govuk-label" for="input-example">
-                                        Ulica
+                                        Ulica (povinné)
                                     </label>
+                                    <span class="govuk-error-message" style="display: none">
+                                      <span class="govuk-visually-hidden">Error:</span> Ulica je povinná.
+                                      </span>
                                     {{ form.street(class_="govuk-input") }}
                                 </div>
                                 <div class="govuk-form-group">
                                     <label class="govuk-label" for="input-example">
-                                        Číslo
+                                        Číslo (povinné)
                                     </label>
+                                    <span class="govuk-error-message" style="display: none">
+                                      <span class="govuk-visually-hidden">Error:</span> Číslo je povinné.
+                                      </span>
                                     {{ form.street_number(class_="govuk-input") }}
                                 </div>
                                 <div class="govuk-form-group">
                                     <label class="govuk-label" for="input-example">
-                                        Mesto
+                                        Mesto (povinné)
                                     </label>
+                                    <span class="govuk-error-message" style="display: none">
+                                      <span class="govuk-visually-hidden">Error:</span> Mesto je povinné.
+                                      </span>
                                     {{ form.city(class_="govuk-input") }}
                                 </div>
                                 <div class="govuk-form-group">
                                     <label class="govuk-label" for="input-example">
-                                        PSČ
+                                        PSČ (povinné)
                                     </label>
+                                    <span class="govuk-error-message" style="display: none">
+                                      <span class="govuk-visually-hidden">Error:</span> PSČ je povinné.
+                                      </span>
                                     {{ form.zip(class_="govuk-input") }}
                                 </div>
                                 {% if type == "b" %}
-                                    <p class="govuk-body">Po potvrdení adresy tlačidlom nižšie bude spustené spresnenie polohy.</p>
+                                    <p class="govuk-body">Po potvrdení adresy tlačidlom nižšie bude
+                                        spustené spresnenie polohy.</p>
                                 {% endif %}
                                 {% if type == "a" or type == "b" %}
-                                    <button class="govuk-button" id="address-submit" disabled>
+                                    <button class="govuk-button" id="address-submit">
                                         Potvrdiť adresu
                                     </button>
                                 {% endif %}
@@ -57,21 +70,38 @@
                                  {% if type == "b" %}style="display: none"{% endif %}>
                                 <div>
                                     <h2 class="govuk-heading-l">1. Povoľte zdieľanie polohy</h2>
-                                    <p class="govuk-body">Po stlačení tlačidla nižšie vás prehliadač vyzve, aby ste povolili zdieľanie polohy. Potvrďte zdieľanie polohy.</p>
-                                    <p class="govuk-body unsupported" style="display: none;"><i class="fas fa-exclamation-circle"></i> Váš prehliadač nepodporuje získanie polohy.</p>
-                                    <p class="govuk-body denied" style="display: none;"><i class="fas fa-exclamation-triangle"></i> Získanie polohy nebolo povolené.</p>
-                                    <p class="govuk-body unavailable" style="display: none;"><i class="fas fa-exclamation-triangle"></i> Polohu sa nepodarilo získať. Zapnite získanie polohy v nastaveniach.</p>
-                                    <p class="govuk-body available" style="display: none;"><i class="fas fa-check-circle"></i> Poloha bola úspešne získaná.</p>
+                                    <p class="govuk-body">Po stlačení tlačidla nižšie vás prehliadač
+                                        vyzve, aby ste povolili zdieľanie polohy. Potvrďte zdieľanie
+                                        polohy.</p>
+                                    <p class="govuk-body unsupported" style="display: none;"><i
+                                            class="fas fa-exclamation-circle"></i> Váš prehliadač
+                                        nepodporuje získanie polohy.</p>
+                                    <p class="govuk-body denied" style="display: none;"><i
+                                            class="fas fa-exclamation-triangle"></i> Získanie polohy
+                                        nebolo povolené.</p>
+                                    <p class="govuk-body unavailable" style="display: none;"><i
+                                            class="fas fa-exclamation-triangle"></i> Polohu sa
+                                        nepodarilo získať. Zapnite získanie polohy v nastaveniach.
+                                    </p>
+                                    <p class="govuk-body available" style="display: none;"><i
+                                            class="fas fa-check-circle"></i> Poloha bola úspešne
+                                        získaná.</p>
                                     <button class="govuk-button" id="place-try">Skúsiť</button>
                                 </div>
                                 <div>
                                     <h2 class="govuk-heading-l">2. Počkajte na získanie presnej
                                         polohy</h2>
-                                    <p class="govuk-body">Pokúšame sa získať čo najpresnejší údaj o Vašej polohe. Akonáhle bude vaša poloha overená s presnosťou aspoň 150 m,
-                                        budete ju môcť potvrdiť stlačením tlačidla Potvrdiť miesto.</p>
+                                    <p class="govuk-body">Pokúšame sa získať čo najpresnejší údaj o
+                                        Vašej polohe. Akonáhle bude vaša poloha overená s presnosťou
+                                        aspoň 150 m,
+                                        budete ju môcť potvrdiť stlačením tlačidla Potvrdiť
+                                        miesto.</p>
 
-                                    <div id="place-accuracy" style="text-align: center;" class="govuk-!-padding-top-2 govuk-!-padding-bottom-4">
-                                        <h3 class="govuk-heading-m">Presnosť <i class="fas fa-spinner fa-pulse spinner" style="display: none"></i></h3>
+                                    <div id="place-accuracy" style="text-align: center;"
+                                         class="govuk-!-padding-top-2 govuk-!-padding-bottom-4">
+                                        <h3 class="govuk-heading-m">Presnosť <i
+                                                class="fas fa-spinner fa-pulse spinner"
+                                                style="display: none"></i></h3>
                                         <span style="font-size: 2em; font-family:Source Sans Pro,Arial,sans-serif;">Neznáma</span>
                                     </div>
                                 </div>
@@ -90,8 +120,6 @@
                         $("#address-submit").click(address_submit);
                         $("#place-try").click(place_try);
                         $("#place-submit").click(place_submit);
-                        $("#address-part input").keyup(address_press);
-                        $("#address-part input").change(address_press);
                     </script>
                 </div>
             </div>
