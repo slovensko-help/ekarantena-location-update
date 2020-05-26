@@ -165,3 +165,8 @@ def locate(type, token):
     else:
         return render_template("located.html.jinja2", type=type, token=token, message="Chyba. ",
                                detail="", ok=False, errors=form.errors)
+
+
+@app.errorhandler(404)
+def error(error):
+    return render_template("error.html.jinja2", message=str(error.code), detail=error.description)
