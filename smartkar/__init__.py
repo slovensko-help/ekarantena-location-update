@@ -1,7 +1,7 @@
 import os
 
 import requests
-from flask import Flask, render_template, request, abort
+from flask import Flask, render_template, request, abort, Markup
 from flask_wtf import FlaskForm, CSRFProtect
 from wtforms import StringField, validators, FloatField
 
@@ -124,8 +124,9 @@ def submit_form(form):
     elif resp.status_code == 404:
         ok = False
         message = "Chyba. Nesprávny token."
-        detail = "Skontrolujte, že adresa stránky je správna a token \"{}\" neobsahuje chybu.".format(
-                form.token.data)
+        detail = Markup(
+                "Skontrolujte, že adresa stránky je správna a token <pre>{}</pre> neobsahuje chybu.".format(
+                        Markup.escape(form.token.data)))
     elif resp.status_code == 401:
         ok = False
         message = "Chyba. Unauthorized."
@@ -156,6 +157,7 @@ def locate(type, token):
     elif form.validate_on_submit():
         resp, ok, message, detail = submit_form(form)
         return render_template("located.html.jinja2", type=type, token=token, message=message,
-                               detail=detail, ok=ok)
+                               detail=detail, ok=ok, errors={})
     else:
-        print(form.data)
+        return render_template("located.html.jinja2", type=type, token=token, message="Chyba. ",
+                               detail="", ok=False, errors=form.errors)

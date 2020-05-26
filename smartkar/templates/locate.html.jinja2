@@ -46,7 +46,7 @@
                                     <p class="govuk-body">Po potvrdení adresy tlačidlom nižšie bude spustené spresnenie polohy.</p>
                                 {% endif %}
                                 {% if type == "a" or type == "b" %}
-                                    <button class="govuk-button" id="address-submit">
+                                    <button class="govuk-button" id="address-submit" disabled>
                                         Potvrdiť adresu
                                     </button>
                                 {% endif %}
@@ -90,6 +90,7 @@
                         $("#address-submit").click(address_submit);
                         $("#place-try").click(place_try);
                         $("#place-submit").click(place_submit);
+                        $("#address-part input").keyup(address_press);
                     </script>
                 </div>
             </div>

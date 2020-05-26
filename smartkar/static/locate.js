@@ -34,6 +34,15 @@ function error_cb(error) {
     }
 }
 
+function address_press(event) {
+    let filtered = $("#address-part input").filter(function (i, elem) {
+        return $(elem).val() === "";
+    });
+    if ($(filtered).length === 0) {
+        $("#address-submit").attr("disabled", false);
+    }
+}
+
 function address_submit(event) {
     console.log(event);
     if (type === "b") {
