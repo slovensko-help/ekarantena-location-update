@@ -102,7 +102,11 @@ def submit_form(form):
     headers = {
         "Authorization": "Bearer " + app.config["NCZI_TOKEN"]
     }
+    print(data)
+    print(headers)
     resp = requests.post(endpoint, json=data, headers=headers)
+    print(resp.status_code)
+    print(resp.content)
     ok = True
     message = ""
     detail = ""
