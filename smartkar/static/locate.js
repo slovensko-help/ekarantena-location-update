@@ -55,13 +55,11 @@ function address_submit(event) {
         event.preventDefault();
         return;
     }
-    if (type === "b") {
-        event.preventDefault();
-        $("#address-part").slideUp(300);
-        $("#place-part").slideDown(300, function () {
-            $("#place-head").get(0).scrollIntoView({behavior: "smooth"});
-        });
-    }
+    event.preventDefault();
+    $("#address-part").slideUp(300);
+    $("#place-part").slideDown(300, function () {
+        $("#place-head").get(0).scrollIntoView({behavior: "smooth"});
+    });
 }
 
 function place_try(event) {

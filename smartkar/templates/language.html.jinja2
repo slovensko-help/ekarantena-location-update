@@ -1,0 +1,17 @@
+{% macro languages() %}
+<div class="language-picker js-language-picker" data-trigger-class="btn btn--subtle js-tab-focus">
+    <form action="" style="display: none"><label for="language-picker-select">Select your language</label>
+        <select name="language-picker-select" id="language-picker-select">
+            {% for locale in translations %}
+                {% set selected = locale.language == get_locale().language %}
+                {{ language_option(locale.language, locale.display_name, caller(locale.language), selected) }}
+            {% endfor %}
+        </select>
+    </form>
+</div>
+{% endmacro %}
+
+{% macro language_option(language, name, url, selected=False) %}
+    <option lang="{{ language }}" value="{{ name|capitalize }}" data-url="{{ url }}" {% if selected %}selected=""{% endif %}>{{ name|capitalize  }}
+    </option>
+{% endmacro %}

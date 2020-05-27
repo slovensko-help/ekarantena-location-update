@@ -144,14 +144,8 @@
                    style="outline-width: 0px !important; user-select: auto !important;">
                     {% trans %}Potvrdenie miesta domácej izolácie{% endtrans %}
                 </a>
-            <div class="language-picker js-language-picker" data-trigger-class="btn btn--subtle js-tab-focus">
-                <form action="" style="display: none"><label for="language-picker-select">Select your language</label>
-                <select name="language-picker-select" id="language-picker-select">
-                    <option lang="en" value="English" data-url="https://korona.gov.sk/en/coronavirus-covid-19-in-the-slovak-republic-in-numbers/">English</option>
-                    <option lang="sk" value="Slovenčina" data-url="https://korona.gov.sk/koronavirus-na-slovensku-v-cislach/" selected="">Slovenčina</option>
-                </select>
-                </form>
-            </div>
+            {% block lang %}
+            {% endblock %}
             </div>
         </div>
     </div>

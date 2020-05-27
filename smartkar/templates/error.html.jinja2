@@ -1,4 +1,10 @@
 {% extends "base.html.jinja2" %}
+{% from "language.html.jinja2" import languages %}
+{% block lang %}
+    {% call(lang) languages() %}
+        {{ url_for(".landing", lang=lang, token=token) }}
+    {% endcall %}
+{% endblock %}
 {% block body %}
     <div class="govuk-!-padding-top-4 govuk-!-padding-bottom-5"
          style="height: 75%; display: flex; flex-direction: column; justify-content: center;">
