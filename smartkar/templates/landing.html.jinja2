@@ -4,32 +4,30 @@
         <div class="govuk-width-container">
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full">
-                    <h1 class="govuk-heading-xl">Potvrdenie miesta domácej izolácie</h1>
+                    <h1 class="govuk-heading-xl">{% trans %}Potvrdenie miesta domácej izolácie{% endtrans %}</h1>
                     <p class="govuk-body-lead">
-                        Ďakujeme vám, že dodržiavate domácu izoláciu. Chceli by sme vás požiadať o
-                        spoluprácu pri spresnení <strong>{{ type_name["genitiv"] }}</strong> domácej izolácie.
+                        {% trans %}Ďakujeme vám, že dodržiavate domácu izoláciu. Chceli by sme vás požiadať o spoluprácu pri spresnení <strong>adresy a polohy</strong> domácej izolácie.{% endtrans %}
                     </p>
                     {%- if type == "b" %}
                         <p class="govuk-body">
-                            Prosíme, v nasledujúcich dvoch krokoch vložte vašu adresu domácej izolácie a následne potvrďte miesto izolácie.
+                            {% trans %}Prosíme, v nasledujúcich dvoch krokoch vložte vašu adresu domácej izolácie a následne potvrďte miesto izolácie.{% endtrans %}
                         </p>
                     {%- endif %}
                     {%- if type == "p" or type == "b" %}
                         <div class="govuk-warning-text">
                             <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
                             <strong class="govuk-warning-text__text">
-                                <span class="govuk-warning-text__assistive">Upozornenie</span>
-                                <p><b>Zapnite si GPS a nájdite si miesto blízko okna,
-                                    aby bol zaistený dobrý signál GPS.</b></p>
+                                <span class="govuk-warning-text__assistive">{% trans %}Upozornenie{% endtrans %}</span>
+                                <p><strong>{% trans %}Zapnite si GPS a nájdite si miesto blízko okna, aby bol zaistený dobrý signál GPS.{% endtrans %}</strong></p>
                             </strong>
                         </div>
                     {%- endif %}
-                    <p class="govuk-body">Pokračujte stlačením tlačidla “Začať”.</p>
+                    <p class="govuk-body">{% trans %}Pokračujte stlačením tlačidla “Začať”.{% endtrans %}</p>
                     <a href="{{ url_for(".locate", type=type, token=token) }}" role="button"
                        draggable="false"
                        class="govuk-button govuk-button--start" data-module="govuk-button"
                        title="Začať proces">
-                        Začať
+                        {% trans %}Začať{% endtrans %}
                         <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg"
                              width="17.5"
                              height="19" viewBox="0 0 33 40" role="presentation" focusable="false">

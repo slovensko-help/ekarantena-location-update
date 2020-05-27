@@ -26,7 +26,7 @@
                             {% endfor %}
                         </div>
                         <a href="{{ url_for(".landing", type=type, token=token) }}"
-                           class="govuk-button">Skúsiť znova</a>
+                           class="govuk-button">{% trans %}Skúsiť znova{% endtrans %}</a>
                     {%- endif %}
                 </div>
             </div>

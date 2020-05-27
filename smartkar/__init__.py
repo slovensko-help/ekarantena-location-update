@@ -2,19 +2,30 @@ import os
 
 import requests
 from flask import Flask, render_template, request, abort, Markup
+from flask_babel import Babel, gettext, lazy_gettext
 from flask_wtf import FlaskForm, CSRFProtect
 from wtforms import StringField, validators, FloatField
 
 app = Flask(__name__, static_url_path="/geo/static")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 app.config["NCZI_TOKEN"] = os.environ.get("NCZI_TOKEN")
+app.jinja_env.policies["ext.i18n.trimmed"] = True
 
 csrf = CSRFProtect(app)
+
+babel = Babel(app, default_locale="sk", default_timezone="Europe/Bratislava")
 
 try:
     os.makedirs(app.instance_path)
 except OSError:
     pass
+
+
+@babel.localeselector
+def get_locale():
+    if "lang" in request.args:
+        return request.args.get("lang")
+    return None
 
 
 class PlaceForm(FlaskForm):
@@ -43,28 +54,28 @@ class BothForm(FlaskForm):
 
 types = {
     "a": {
-        "nominativ": "adresa",
-        "genitiv": "adresy",
-        "dativ": "adrese",
-        "akuzativ": "adresu",
-        "lokal": "adrese",
-        "instrumental": "adresou"
+        "nominativ": lazy_gettext("adresa"),
+        "genitiv": lazy_gettext("adresy"),
+        "dativ": lazy_gettext("adrese"),
+        "akuzativ": lazy_gettext("adresu"),
+        "lokal": lazy_gettext("adrese"),
+        "instrumental": lazy_gettext("adresou")
     },
     "p": {
-        "nominativ": "poloha",
-        "genitiv": "polohy",
-        "dativ": "polohe",
-        "akuzativ": "polohu",
-        "lokal": "polohe",
-        "instrumental": "polohou"
+        "nominativ": lazy_gettext("poloha"),
+        "genitiv": lazy_gettext("polohy"),
+        "dativ": lazy_gettext("polohe"),
+        "akuzativ": lazy_gettext("polohu"),
+        "lokal": lazy_gettext("polohe"),
+        "instrumental": lazy_gettext("polohou")
     },
     "b": {
-        "nominativ": "adresa a apoloha",
-        "genitiv": "adresy a polohy",
-        "dativ": "adrese a polohe",
-        "akuzativ": "adresu a polohu",
-        "lokal": "adrese a polohe",
-        "instrumental": "adresou a polohou"
+        "nominativ": lazy_gettext("adresa a apoloha"),
+        "genitiv": lazy_gettext("adresy a polohy"),
+        "dativ": lazy_gettext("adrese a polohe"),
+        "akuzativ": lazy_gettext("adresu a polohu"),
+        "lokal": lazy_gettext("adrese a polohe"),
+        "instrumental": lazy_gettext("adresou a polohou")
     }
 }
 # Nominativ - kto, co
@@ -111,32 +122,32 @@ def submit_form(form):
     message = ""
     detail = ""
     if resp.status_code == 200:
-        message = "Poloha domácej izolácie bola úspešne aktualizovaná."
+        message = gettext("Poloha domácej izolácie bola úspešne aktualizovaná.")
     elif resp.status_code == 202:
         ok = False
         try:
             resp_data = resp.json()
-            message = "Chyba. Duplicate."
+            message = gettext("Chyba. Duplicate.")
             detail = resp_data["ErrorText"]
         except Exception:
-            message = "Chyba. Duplicate."
-            detail = "Poloha domácej izolácie už bola raz aktualizovaná."
+            message = gettext("Chyba. Duplicate.")
+            detail = gettext("Poloha domácej izolácie už bola raz aktualizovaná.")
     elif resp.status_code == 400:
         ok = False
-        message = "Chyba. Bad request."
+        message = gettext("Chyba. Bad request.")
         detail = ""
     elif resp.status_code == 404:
         ok = False
-        message = "Chyba. Nesprávny token."
-        detail = Markup(
-                "Skontrolujte, že adresa stránky je správna a token <pre>{}</pre> neobsahuje chybu.".format(
-                        Markup.escape(form.token.data)))
+        message = gettext("Chyba. Nesprávny token.")
+        detail = Markup(gettext(
+                "Skontrolujte, že adresa stránky je správna a token <pre>{token}</pre> neobsahuje chybu.").format(
+                token=Markup.escape(form.token.data)))
     elif resp.status_code == 401:
         ok = False
-        message = "Chyba. Unauthorized."
+        message = gettext("Chyba. Unauthorized.")
     elif resp.status_code == 403:
         ok = False
-        message = "Chyba. Forbidden."
+        message = gettext("Chyba. Forbidden.")
     return resp, ok, message, detail
 
 
@@ -163,7 +174,8 @@ def locate(type, token):
         return render_template("located.html.jinja2", type=type, token=token, message=message,
                                detail=detail, ok=ok, errors={})
     else:
-        return render_template("located.html.jinja2", type=type, token=token, message="Chyba. ",
+        return render_template("located.html.jinja2", type=type, token=token,
+                               message=gettext("Chyba."),
                                detail="", ok=False, errors=form.errors)
 
 
