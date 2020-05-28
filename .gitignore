@@ -1,3 +1,5 @@
 /.idea/
 /virt/
 __pycache__/
+.env
+.env.dev
