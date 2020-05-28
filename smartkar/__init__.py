@@ -1,5 +1,6 @@
 import os
 from functools import wraps
+import datetime
 
 import requests
 from babel import Locale
@@ -11,6 +12,7 @@ from wtforms import StringField, validators, FloatField
 app = Flask(__name__, static_url_path="/geo/static")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 app.config["NCZI_TOKEN"] = os.environ.get("NCZI_TOKEN")
+app.config["SLACK_HOOK"] = os.environ.get("SLACK_HOOK", None)
 
 csrf = CSRFProtect(app)
 
@@ -81,6 +83,18 @@ def submit_form(form):
     if app.env == "development":
         print(data, headers)
         print(resp.status_code, resp.content)
+    if app.config["SLACK_HOOK"]:
+        try:
+            if resp.status_code == 200:
+                template = ":world_map: Na doméne ekarantena.korona.gov.sk si zmenil polohu repatriant s tokenom *{}*, čas: *{}*, mesto: *{}*, response: *{}* :heavy_check_mark:"
+            else:
+                template = ":world_map: Na doméne ekarantena.korona.gov.sk skúsil zmeniť polohu repatriant s tokenom *{}*, čas: *{}*, mesto: *{}*, response: *{}* :x:"
+            slack = {
+                "text": template.format(form.token.data[:5], datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S"), form.city.data, resp.status_code)
+            }
+            requests.post(app.config["SLACK_HOOK"], json=slack)
+        except:
+            pass
     ok = True
     message = ""
     detail = ""
