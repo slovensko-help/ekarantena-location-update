@@ -18,6 +18,8 @@ babel = Babel(app, default_locale="sk", default_timezone="Europe/Bratislava")
 translations = babel.list_translations() + [Locale("sk")]
 app.jinja_env.globals["get_locale"] = get_locale
 app.jinja_env.globals["translations"] = translations
+app.jinja_env.globals["accuracy_bound"] = 25
+app.jinja_env.globals["accuracy_timeout"] = 5 * 60 * 1000
 app.jinja_env.policies["ext.i18n.trimmed"] = True
 
 if app.env == "production":

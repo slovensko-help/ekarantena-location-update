@@ -69,9 +69,9 @@
                                     <p class="govuk-body unsupported" style="display: none;"><i
                                             class="fas fa-exclamation-circle"></i> {% trans %}Váš prehliadač nepodporuje získanie polohy.{% endtrans %}</p>
                                     <p class="govuk-body denied" style="display: none;"><i
-                                            class="fas fa-exclamation-triangle"></i> {% trans %}Získanie polohy nebolo povolené.{% endtrans %}</p>
+                                            class="fas fa-exclamation-triangle"></i> {% trans %}Získanie polohy nebolo povolené. Povoľte zdieľanie polohy.{% endtrans %}</p>
                                     <p class="govuk-body unavailable" style="display: none;"><i
-                                            class="fas fa-exclamation-triangle"></i> {% trans %}Polohu sa nepodarilo získať. Zapnite získanie polohy v nastaveniach.{% endtrans %}
+                                            class="fas fa-exclamation-triangle"></i> {% trans %}Polohu sa nepodarilo získať. Zapnite získanie polohy v nastaveniach, ak je zapnuté, počkajte na jej získanie.{% endtrans %}
                                     </p>
                                     <p class="govuk-body available" style="display: none;"><i
                                             class="fas fa-check-circle"></i> {% trans %}Poloha bola úspešne získaná.{% endtrans %}</p>
@@ -79,8 +79,8 @@
                                 </div>
                                 <div>
                                     <h2 class="govuk-heading-l">{% trans %}2. Počkajte na získanie presnej polohy{% endtrans %}</h2>
-                                    <p class="govuk-body">{% trans %}Pokúšame sa získať čo najpresnejší údaj o Vašej polohe. Akonáhle bude vaša poloha overená s presnosťou aspoň 150 m, budete ju môcť potvrdiť stlačením tlačidla “Potvrdiť miesto”.{% endtrans %}
-                                        <strong>{% trans %}Ak je presnosť nad 150m choďte k oknu.{% endtrans %}</strong></p>
+                                    <p class="govuk-body">{% trans %}Pokúšame sa získať čo najpresnejší údaj o Vašej polohe. Akonáhle bude vaša poloha overená s presnosťou aspoň {{ accuracy_bound }}m, budete ju môcť potvrdiť stlačením tlačidla “Potvrdiť miesto”.{% endtrans %}
+                                        <strong>{% trans %}Ak je presnosť nad {{ accuracy_bound }}m choďte k oknu a počkajte na lepší signál, tento proces môže trvať aj niekoľko minút.{% endtrans %}</strong></p>
                                     <div id="place-accuracy" style="text-align: center;"
                                          class="govuk-!-padding-top-2 govuk-!-padding-bottom-4">
                                         <h3 class="govuk-heading-m">{% trans %}Presnosť{% endtrans %} <i
@@ -97,6 +97,8 @@
                             </div>
                     </form>
                     <script>
+                        accuracy_bound = {{ accuracy_bound }};
+                        accuracy_timeout = {{ accuracy_timeout }};
                         $("#address-submit").click(address_submit);
                         $("#place-try").click(place_try);
                         $("#place-submit").click(place_submit);

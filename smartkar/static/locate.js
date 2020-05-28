@@ -1,5 +1,13 @@
 let best_position = null;
 let watch_id = null;
+let accuracy_bound = 0;
+let accuracy_timeout = 0;
+
+
+function enable_submit() {
+    $("#place-submit").attr("disabled", false);
+    $("#place-accuracy .spinner").removeClass("fa-pulse").removeClass("fa-spinner").addClass("fa-check-circle");
+}
 
 function success_cb(position) {
     console.log(position);
@@ -18,9 +26,8 @@ function success_cb(position) {
         $("#lat").val(best_position.lat).text(best_position.lat);
         $("#lng").val(best_position.lng).text(best_position.lng);
         $("#place-accuracy span").text(Math.round(position.coords.accuracy) + " m");
-        if (position.coords.accuracy <= 150) {
-            $("#place-submit").attr("disabled", false);
-            $("#place-accuracy .spinner").removeClass("fa-pulse").removeClass("fa-spinner").addClass("fa-check-circle");
+        if (position.coords.accuracy <= accuracy_bound) {
+            enable_submit();
         }
     }
 }
@@ -60,6 +67,7 @@ function address_submit(event) {
     $("#place-part").slideDown(300, function () {
         $("#place-head").get(0).scrollIntoView({behavior: "smooth"});
     });
+    setTimeout(enable_submit, accuracy_timeout);
 }
 
 function place_try(event) {
@@ -82,6 +90,8 @@ function place_submit(event) {
     console.log(event);
     if (best_position !== null) {
         $("#form").submit();
+    } else {
+        //TODO: What to do here?
     }
 }
 
