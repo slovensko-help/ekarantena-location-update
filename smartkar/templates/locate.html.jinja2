@@ -20,52 +20,56 @@
                         {{ form.hidden_tag() }}
                         {{ form.token(style="display: none") }}
                             <div id="address-part">
-                                <h2 class="govuk-heading-l">{% trans %}Adresa domácej izolácie{% endtrans %}</h2>
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label" for="street">
-                                        {% trans %}Ulica{% endtrans %}
-                                    </label>
-                                    <span class="govuk-error-message" style="display: none">
-                                      <span class="govuk-visually-hidden">Error:</span> {% trans %}Ulica je povinná.{% endtrans %}
-                                      </span>
-                                    {{ form.street(class_="govuk-input") }}
+                                <h2 class="govuk-heading-l">{% trans %}1. Adresa domácej izolácie{% endtrans %}</h2>
+                                <div id="address-body">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label" for="street">
+                                            {% trans %}Ulica{% endtrans %}
+                                        </label>
+                                        <span class="govuk-error-message" style="display: none">
+                                          <span class="govuk-visually-hidden">Error:</span> {% trans %}Ulica je povinná.{% endtrans %}
+                                          </span>
+                                        {{ form.street(class_="govuk-input") }}
+                                    </div>
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label" for="street_number">
+                                            {% trans %}Číslo domu{% endtrans %}
+                                        </label>
+                                        <span class="govuk-error-message" style="display: none">
+                                          <span class="govuk-visually-hidden">Error:</span> {% trans %}Číslo domu je povinné.{% endtrans %}
+                                          </span>
+                                        {{ form.street_number(class_="govuk-input") }}
+                                    </div>
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label" for="city">
+                                            {% trans %}Mesto{% endtrans %}
+                                        </label>
+                                        <span class="govuk-error-message" style="display: none">
+                                          <span class="govuk-visually-hidden">Error:</span> {% trans %}Mesto je povinné.{% endtrans %}
+                                          </span>
+                                        {{ form.city(class_="govuk-input") }}
+                                    </div>
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label" for="zip">
+                                            {% trans %}PSČ{% endtrans %}
+                                        </label>
+                                        <span class="govuk-error-message" style="display: none">
+                                          <span class="govuk-visually-hidden">Error:</span> {% trans %}PSČ je povinné.{% endtrans %}
+                                          </span>
+                                        {{ form.zip(class_="govuk-input") }}
+                                    </div>
+                                    <p class="govuk-body">{% trans %}Po potvrdení adresy tlačidlom nižšie bude spustené spresnenie polohy.{% endtrans %}</p>
+                                    <button class="govuk-button" id="address-submit">
+                                        {% trans %}Potvrdiť adresu{% endtrans %}
+                                    </button>
                                 </div>
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label" for="street_number">
-                                        {% trans %}Súpisné číslo{% endtrans %}
-                                    </label>
-                                    <span class="govuk-error-message" style="display: none">
-                                      <span class="govuk-visually-hidden">Error:</span> {% trans %}Súpisne číslo je povinné.{% endtrans %}
-                                      </span>
-                                    {{ form.street_number(class_="govuk-input") }}
-                                </div>
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label" for="city">
-                                        {% trans %}Mesto{% endtrans %}
-                                    </label>
-                                    <span class="govuk-error-message" style="display: none">
-                                      <span class="govuk-visually-hidden">Error:</span> {% trans %}Mesto je povinné.{% endtrans %}
-                                      </span>
-                                    {{ form.city(class_="govuk-input") }}
-                                </div>
-                                <div class="govuk-form-group">
-                                    <label class="govuk-label" for="zip">
-                                        {% trans %}PSČ{% endtrans %}
-                                    </label>
-                                    <span class="govuk-error-message" style="display: none">
-                                      <span class="govuk-visually-hidden">Error:</span> {% trans %}PSČ je povinné.{% endtrans %}
-                                      </span>
-                                    {{ form.zip(class_="govuk-input") }}
-                                </div>
-                                <p class="govuk-body">{% trans %}Po potvrdení adresy tlačidlom nižšie bude spustené spresnenie polohy.{% endtrans %}</p>
-                                <button class="govuk-button" id="address-submit">
-                                    {% trans %}Potvrdiť adresu{% endtrans %}
-                                </button>
                             </div>
-                            <div id="place-part" style="display: none">
+                            <div id="place-part">
                                 <div>
-                                    <h2 class="govuk-heading-l" id="place-head">{% trans %}1. Povoľte zdieľanie polohy{% endtrans %}</h2>
+                                    <h2 class="govuk-heading-l gray" id="try-head">{% trans %}2. Povoľte zdieľanie polohy{% endtrans %}</h2>
+                                <div id="try-body" style="display: none">
                                     <p class="govuk-body">{% trans %}Po stlačení tlačidla nižšie vás prehliadač vyzve, aby ste povolili zdieľanie polohy. Potvrďte zdieľanie polohy.{% endtrans %}</p>
+                                    <p class="govuk-body doing" style="display: none;"><i class="fas fa-spinner fa-pulse spinner"></i></p>
                                     <p class="govuk-body unsupported" style="display: none;"><i
                                             class="fas fa-exclamation-circle"></i> {% trans %}Váš prehliadač nepodporuje získanie polohy.{% endtrans %}</p>
                                     <p class="govuk-body denied" style="display: none;"><i
@@ -75,25 +79,29 @@
                                     </p>
                                     <p class="govuk-body available" style="display: none;"><i
                                             class="fas fa-check-circle"></i> {% trans %}Poloha bola úspešne získaná.{% endtrans %}</p>
-                                    <button class="govuk-button" id="place-try">{% trans %}Skúsiť{% endtrans %}</button>
+                                    <button class="govuk-button" id="place-try">{% trans %}Zdielať polohu{% endtrans %}</button>
+                                </div>
                                 </div>
                                 <div>
-                                    <h2 class="govuk-heading-l">{% trans %}2. Počkajte na získanie presnej polohy{% endtrans %}</h2>
-                                    <p class="govuk-body">{% trans %}Pokúšame sa získať čo najpresnejší údaj o Vašej polohe. Akonáhle bude vaša poloha overená s presnosťou aspoň {{ accuracy_bound }}m, budete ju môcť potvrdiť stlačením tlačidla “Potvrdiť miesto”.{% endtrans %}
-                                        <strong>{% trans %}Ak je presnosť nad {{ accuracy_bound }}m choďte k oknu a počkajte na lepší signál, tento proces môže trvať aj niekoľko minút.{% endtrans %}</strong></p>
-                                    <div id="place-accuracy" style="text-align: center;"
-                                         class="govuk-!-padding-top-2 govuk-!-padding-bottom-4">
-                                        <h3 class="govuk-heading-m">{% trans %}Presnosť{% endtrans %} <i
-                                                class="fas fa-spinner fa-pulse spinner"
-                                                style="display: none"></i></h3>
-                                        <span style="font-size: 2em; font-family:Source Sans Pro,Arial,sans-serif;">{% trans %}Neznáma{% endtrans %}</span>
+                                    <h2 class="govuk-heading-l gray" id="place-head">{% trans %}3. Počkajte na získanie presnej polohy{% endtrans %}</h2>
+                                    <div id="place-body" style="display: none">
+                                        <p class="govuk-body">{% trans %}Pokúšame sa získať čo najpresnejší údaj o Vašej polohe. Akonáhle bude vaša poloha overená s presnosťou aspoň {{ accuracy_bound }}m, budete ju môcť potvrdiť stlačením tlačidla “Potvrdiť miesto”.{% endtrans %}
+                                            <strong>{% trans %}Ak je presnosť nad {{ accuracy_bound }}m choďte k oknu a počkajte na lepší signál, tento proces môže trvať aj niekoľko minút.{% endtrans %}</strong></p>
+                                        <div id="place-accuracy" style="text-align: center;"
+                                             class="govuk-!-padding-top-2 govuk-!-padding-bottom-4">
+                                            <h3 class="govuk-heading-m">{% trans %}Presnosť{% endtrans %} <i
+                                                    class="fas fa-spinner fa-pulse spinner"
+                                                    style="display: none"></i></h3>
+                                            <span style="font-size: 2em; font-family:Source Sans Pro,Arial,sans-serif;">{% trans %}Neznáma{% endtrans %}</span>
+                                        </div>
+
+                                    {{ form.lat(style="display: none") }}
+                                    {{ form.lng(style="display: none") }}
+                                    <button class="govuk-button" id="place-submit" disabled>
+                                        {% trans %}Potvrdiť miesto{% endtrans %}
+                                    </button>
                                     </div>
                                 </div>
-                                {{ form.lat(style="display: none") }}
-                                {{ form.lng(style="display: none") }}
-                                <button class="govuk-button" id="place-submit" disabled>
-                                    {% trans %}Potvrdiť miesto{% endtrans %}
-                                </button>
                             </div>
                     </form>
                     <script>

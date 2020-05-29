@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-05-28 18:10+0200\n"
+"POT-Creation-Date: 2020-05-29 16:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,39 +17,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: smartkar/__init__.py:88
+#: smartkar/__init__.py:102
 msgid "Poloha domácej izolácie bola úspešne aktualizovaná."
 msgstr ""
 
-#: smartkar/__init__.py:93 smartkar/__init__.py:96
-msgid "Chyba. Duplicate."
-msgstr ""
-
-#: smartkar/__init__.py:97
-msgid "Poloha domácej izolácie už bola raz aktualizovaná."
-msgstr ""
-
-#: smartkar/__init__.py:100
-msgid "Chyba. Bad request."
-msgstr ""
-
-#: smartkar/__init__.py:104
-msgid "Chyba. Nesprávny token."
-msgstr ""
-
-#: smartkar/__init__.py:105
-msgid "Skontrolujte, že adresa stránky je správna a token <pre>{token}</pre> neobsahuje chybu."
+#: smartkar/__init__.py:105 smartkar/__init__.py:117
+msgid "Chyba"
 msgstr ""
 
 #: smartkar/__init__.py:110
-msgid "Chyba. Unauthorized."
+msgid "Poloha domácej izolácie už bola raz aktualizovaná."
 msgstr ""
 
 #: smartkar/__init__.py:113
+msgid "Chyba. Bad request."
+msgstr ""
+
+#: smartkar/__init__.py:118
+msgid "Platnosť linku na spresnenie polohy domácej izolácie vypršala. Vyčkajte na ďalšiu výzvu na spresnenie polohy vašej domácej izolácie."
+msgstr ""
+
+#: smartkar/__init__.py:121
+msgid "Chyba. Unauthorized."
+msgstr ""
+
+#: smartkar/__init__.py:124
 msgid "Chyba. Forbidden."
 msgstr ""
 
-#: smartkar/__init__.py:141
+#: smartkar/__init__.py:152
 msgid "Chyba."
 msgstr ""
 
@@ -57,20 +53,20 @@ msgstr ""
 msgid "Spresnenie miesta domácej izolácie"
 msgstr ""
 
-#: smartkar/templates/base.html.jinja2:145
+#: smartkar/templates/base.html.jinja2:148
 #: smartkar/templates/landing.html.jinja2:13
 msgid "Potvrdenie miesta domácej izolácie"
 msgstr ""
 
-#: smartkar/templates/base.html.jinja2:169
+#: smartkar/templates/base.html.jinja2:172
 msgid "Prevádzkovateľom služby je Národné centrum zdravotníckych informácii."
 msgstr ""
 
-#: smartkar/templates/base.html.jinja2:170
+#: smartkar/templates/base.html.jinja2:173
 msgid "Vytvorené v súlade s Jednotným dizajn manuálom elektronických služieb."
 msgstr ""
 
-#: smartkar/templates/base.html.jinja2:176
+#: smartkar/templates/base.html.jinja2:179
 msgid "Podmienky ochrany súkromia"
 msgstr ""
 
@@ -99,100 +95,100 @@ msgid "Začať"
 msgstr ""
 
 #: smartkar/templates/locate.html.jinja2:23
-msgid "Adresa domácej izolácie"
+msgid "1. Adresa domácej izolácie"
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:26
+#: smartkar/templates/locate.html.jinja2:27
 msgid "Ulica"
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:29
+#: smartkar/templates/locate.html.jinja2:30
 msgid "Ulica je povinná."
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:35
-msgid "Súpisné číslo"
+#: smartkar/templates/locate.html.jinja2:36
+msgid "Číslo domu"
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:38
-msgid "Súpisne číslo je povinné."
+#: smartkar/templates/locate.html.jinja2:39
+msgid "Číslo domu je povinné."
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:44
+#: smartkar/templates/locate.html.jinja2:45
 msgid "Mesto"
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:47
+#: smartkar/templates/locate.html.jinja2:48
 msgid "Mesto je povinné."
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:53
+#: smartkar/templates/locate.html.jinja2:54
 msgid "PSČ"
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:56
+#: smartkar/templates/locate.html.jinja2:57
 msgid "PSČ je povinné."
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:60
+#: smartkar/templates/locate.html.jinja2:61
 msgid "Po potvrdení adresy tlačidlom nižšie bude spustené spresnenie polohy."
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:62
+#: smartkar/templates/locate.html.jinja2:63
 msgid "Potvrdiť adresu"
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:67
-msgid "1. Povoľte zdieľanie polohy"
+#: smartkar/templates/locate.html.jinja2:69
+msgid "2. Povoľte zdieľanie polohy"
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:68
+#: smartkar/templates/locate.html.jinja2:71
 msgid "Po stlačení tlačidla nižšie vás prehliadač vyzve, aby ste povolili zdieľanie polohy. Potvrďte zdieľanie polohy."
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:70
+#: smartkar/templates/locate.html.jinja2:74
 msgid "Váš prehliadač nepodporuje získanie polohy."
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:72
+#: smartkar/templates/locate.html.jinja2:76
 msgid "Získanie polohy nebolo povolené. Povoľte zdieľanie polohy."
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:74
+#: smartkar/templates/locate.html.jinja2:78
 msgid "Polohu sa nepodarilo získať. Zapnite získanie polohy v nastaveniach, ak je zapnuté, počkajte na jej získanie."
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:77
+#: smartkar/templates/locate.html.jinja2:81
 msgid "Poloha bola úspešne získaná."
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:78
-msgid "Skúsiť"
-msgstr ""
-
-#: smartkar/templates/locate.html.jinja2:81
-msgid "2. Počkajte na získanie presnej polohy"
-msgstr ""
-
 #: smartkar/templates/locate.html.jinja2:82
+msgid "Zdielať polohu"
+msgstr ""
+
+#: smartkar/templates/locate.html.jinja2:86
+msgid "3. Počkajte na získanie presnej polohy"
+msgstr ""
+
+#: smartkar/templates/locate.html.jinja2:88
 #, python-format
 msgid "Pokúšame sa získať čo najpresnejší údaj o Vašej polohe. Akonáhle bude vaša poloha overená s presnosťou aspoň %(accuracy_bound)sm, budete ju môcť potvrdiť stlačením tlačidla “Potvrdiť miesto”."
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:83
+#: smartkar/templates/locate.html.jinja2:89
 #, python-format
 msgid "Ak je presnosť nad %(accuracy_bound)sm choďte k oknu a počkajte na lepší signál, tento proces môže trvať aj niekoľko minút."
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:86
+#: smartkar/templates/locate.html.jinja2:92
 msgid "Presnosť"
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:89
+#: smartkar/templates/locate.html.jinja2:95
 msgid "Neznáma"
 msgstr ""
 
-#: smartkar/templates/locate.html.jinja2:95
+#: smartkar/templates/locate.html.jinja2:101
 msgid "Potvrdiť miesto"
 msgstr ""
 

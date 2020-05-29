@@ -5,17 +5,25 @@ let accuracy_timeout = 0;
 
 
 function enable_submit() {
-    $("#place-submit").attr("disabled", false);
-    $("#place-accuracy .spinner").removeClass("fa-pulse").removeClass("fa-spinner").addClass("fa-check-circle");
+    if (best_position !== null) {
+        $("#place-submit").attr("disabled", false);
+        $("#place-accuracy .spinner").removeClass("fa-pulse").removeClass("fa-spinner").addClass("fa-check-circle");
+    }
 }
 
 function success_cb(position) {
     console.log(position);
+    $("#place-part .doing").hide(200);
     $("#place-part .denied").hide(200);
     $("#place-part .unavailable").hide(200);
     $("#place-part .unsupported").hide(200);
     $("#place-part .available").show(200);
     $("#place-accuracy .spinner").show();
+    if (best_position === null) {
+        $("#place-head").removeClass("gray");
+        $("#try-body").slideUp(300);
+        $("#place-body").slideDown(300);
+    }
     $("#place-try").attr("disabled", true);
     if (best_position === null || best_position.accuracy > position.coords.accuracy) {
         best_position = {
@@ -63,10 +71,9 @@ function address_submit(event) {
         return;
     }
     event.preventDefault();
-    $("#address-part").slideUp(300);
-    $("#place-part").slideDown(300, function () {
-        $("#place-head").get(0).scrollIntoView({behavior: "smooth"});
-    });
+    $("#try-head").removeClass("gray");
+    $("#address-body").slideUp(300);
+    $("#try-body").slideDown(300);
     setTimeout(enable_submit, accuracy_timeout);
 }
 
@@ -79,9 +86,10 @@ function place_try(event) {
         if (watch_id !== null) {
             navigator.geolocation.clearWatch(watch_id);
         }
+        $("#place-part .doing").show(200);
         watch_id = navigator.geolocation.watchPosition(success_cb, error_cb, {
             "enableHighAccuracy": true,
-            "timeout": 1000
+            "timeout": 3000
         });
     }
 }
@@ -90,8 +98,6 @@ function place_submit(event) {
     console.log(event);
     if (best_position !== null) {
         $("#form").submit();
-    } else {
-        //TODO: What to do here?
     }
 }
 

@@ -102,12 +102,11 @@ def submit_form(form):
         message = gettext("Poloha domácej izolácie bola úspešne aktualizovaná.")
     elif resp.status_code == 202:
         ok = False
+        message = gettext("Chyba")
         try:
             resp_data = resp.json()
-            message = gettext("Chyba. Duplicate.")
             detail = resp_data["ErrorText"]
         except Exception:
-            message = gettext("Chyba. Duplicate.")
             detail = gettext("Poloha domácej izolácie už bola raz aktualizovaná.")
     elif resp.status_code == 400:
         ok = False
@@ -115,10 +114,8 @@ def submit_form(form):
         detail = ""
     elif resp.status_code == 404:
         ok = False
-        message = gettext("Chyba. Nesprávny token.")
-        detail = Markup(gettext(
-                "Skontrolujte, že adresa stránky je správna a token <pre>{token}</pre> neobsahuje chybu.").format(
-                token=Markup.escape(form.token.data)))
+        message = gettext("Chyba")
+        detail = Markup(gettext("Platnosť linku na spresnenie polohy domácej izolácie vypršala. Vyčkajte na ďalšiu výzvu na spresnenie polohy vašej domácej izolácie."))
     elif resp.status_code == 401:
         ok = False
         message = gettext("Chyba. Unauthorized.")
