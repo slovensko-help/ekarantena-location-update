@@ -2,7 +2,7 @@ let best_position = null;
 let watch_id = null;
 let accuracy_bound = 0;
 let accuracy_timeout = 0;
-
+let submitted = false;
 
 function enable_submit() {
     if (best_position !== null) {
@@ -53,8 +53,10 @@ function error_cb(error) {
 
 function address_submit(event) {
     console.log(event);
+    event.preventDefault();
     let bad = 0;
-    $("#address-part input").each(function (i, elem) {
+    let inputs = $("#address-part input");
+    inputs.each(function (i, elem) {
         if ($(elem).val() === "") {
             $(elem).addClass("govuk-input--error");
             $(elem).parents(".govuk-form-group").addClass("govuk-form-group--error");
@@ -67,13 +69,13 @@ function address_submit(event) {
         }
     });
     if (bad !== 0) {
-        event.preventDefault();
         return;
     }
-    event.preventDefault();
+    $("#address-display").text(`${$("#street").val()} ${$("#street_number").val()}, ${$("#zip").val()} ${$("#city").val()}`);
     $("#try-head").removeClass("gray");
     $("#address-body").slideUp(300);
     $("#try-body").slideDown(300);
+    $("#address-display").slideDown(300);
     setTimeout(enable_submit, accuracy_timeout);
 }
 
@@ -96,8 +98,10 @@ function place_try(event) {
 
 function place_submit(event) {
     console.log(event);
-    if (best_position !== null) {
+    if (best_position !== null && !submitted) {
         $("#form").submit();
+        $("#place-submit").attr("disabled", true);
+        submitted = true;
     }
 }
 

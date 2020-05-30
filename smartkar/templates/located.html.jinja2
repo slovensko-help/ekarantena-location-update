@@ -35,8 +35,10 @@
                                 </span>
                             {% endfor %}
                         </div>
+                        {% if again %}
                         <a href="{{ url_for(".landing", lang=get_locale().language, token=token) }}"
                            class="govuk-button">{% trans %}Skúsiť znova{% endtrans %}</a>
+                        {% endif %}
                     {%- endif %}
                 </div>
             </div>

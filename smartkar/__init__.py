@@ -98,31 +98,38 @@ def submit_form(form):
     ok = True
     message = ""
     detail = ""
+    again = True
     if resp.status_code == 200:
         message = gettext("Poloha domácej izolácie bola úspešne aktualizovaná.")
+        again = False
     elif resp.status_code == 202:
         ok = False
         message = gettext("Chyba")
+        again = False
         try:
             resp_data = resp.json()
-            detail = resp_data["ErrorText"]
+            detail = resp_data["errors"][0]["description"]
         except Exception:
             detail = gettext("Poloha domácej izolácie už bola raz aktualizovaná.")
     elif resp.status_code == 400:
         ok = False
         message = gettext("Chyba. Bad request.")
         detail = ""
+        again = True
     elif resp.status_code == 404:
         ok = False
         message = gettext("Chyba")
         detail = Markup(gettext("Platnosť linku na spresnenie polohy domácej izolácie vypršala. Vyčkajte na ďalšiu výzvu na spresnenie polohy vašej domácej izolácie."))
+        again = False
     elif resp.status_code == 401:
         ok = False
         message = gettext("Chyba. Unauthorized.")
+        again = True
     elif resp.status_code == 403:
         ok = False
         message = gettext("Chyba. Forbidden.")
-    return resp, ok, message, detail
+        again = True
+    return resp, ok, message, detail, again
 
 
 @app.route("/geo/<string:token>", defaults={"lang": "sk"})
@@ -145,12 +152,12 @@ def locate(lang, token):
         form.token.data = token
         return render_template("locate.html.jinja2", token=token, form=form)
     elif form.validate_on_submit():
-        resp, ok, message, detail = submit_form(form)
+        resp, ok, message, detail, again = submit_form(form)
         return render_template("located.html.jinja2", token=token, message=message,
-                               detail=detail, ok=ok, errors={})
+                               detail=detail, ok=ok, errors={}, again=again)
     else:
         return render_template("located.html.jinja2", token=token, message=gettext("Chyba."),
-                               detail=None, ok=False, errors=form.errors)
+                               detail=None, ok=False, errors=form.errors, again=True)
 
 
 @app.errorhandler(404)
