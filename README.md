@@ -1,4 +1,12 @@
-# Smartkar(poloha)
+# eQuarantine - Location update
+
+A form page for updating the location of home isolation for the Slovak
+eQuarantine app.
+
+This is a simple Flask app (Python) that basically just serves one
+address form and uses the HTML5 Geolocation API to locate the user's
+device. It then sends this data to the app backend (no data is stored
+in this service).
 
 ## Setup
 
